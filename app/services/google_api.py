@@ -49,21 +49,15 @@ async def spreadsheets_update_value(
 ) -> None:
     now_date_time = datetime.now().strftime(FORMAT)
     service = await wrapper_services.discover('sheets', 'v4')
-    table_values = [
+    table_head = [
         ['Отчет от', now_date_time],
         ['Топ проектов по скорости закрытия'],
         ['Название проекта', 'Время сбора', 'Описание']
     ]
-    new_values = []
-    for project in projects:
-        name = str(project['name'])
-        closing_speed = str(project['close_date'] - project['create_date'])
-        description = str(project['description'])
-        new_row = (name, closing_speed, description)
-        new_values.append(new_row)
-
-    new_values.sort(key=lambda row: row[1])
-    table_values += new_values
+    table_values = [
+        *table_head,
+        *[list(map(str, project.values())) for project in projects],
+    ]
 
     update_body = {
         'majorDimension': 'ROWS',

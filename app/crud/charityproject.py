@@ -37,7 +37,15 @@ class CRUDCharityProject(CRUDBase):
                 CharityProject.fully_invested == 1
             )
         )
-        projects = projects.all()
+        projects = [project._asdict() for project in projects.all()]
+        for project in projects:
+            description = project.pop('description')
+            close_date = project.pop('close_date')
+            create_date = project.pop('create_date')
+            closing_speed = close_date - create_date
+            project.update(
+                {'closing_speed': closing_speed, 'description': description})
+        projects = sorted(projects, key=lambda k: k['closing_speed'])
         return projects
 
 

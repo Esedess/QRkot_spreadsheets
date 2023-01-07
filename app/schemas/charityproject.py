@@ -3,6 +3,8 @@ from typing import Optional
 
 from pydantic import BaseModel, Extra, Field, PositiveInt, validator
 
+from app.core.constants import FULL_AMOUNT_VALIDATION_ERR
+
 
 class CharityProjectBase(BaseModel):
     name: Optional[str] = Field(None, min_length=1, max_length=100)
@@ -25,7 +27,7 @@ class CharityProjectUpdate(CharityProjectBase):
     @validator('full_amount')
     def full_amount_validator(cls, value: PositiveInt):
         if not value:
-            raise ValueError('Требуемая сумма обязательна!')
+            raise ValueError(FULL_AMOUNT_VALIDATION_ERR)
         return value
 
 

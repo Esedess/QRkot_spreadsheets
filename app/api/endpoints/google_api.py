@@ -2,8 +2,10 @@ from aiogoogle import Aiogoogle
 from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.core.constants import SPREADSHEETS_URL
 from app.core.db import get_async_session
 from app.core.google_client import get_service
+from app.core.logger import logger
 from app.core.user import current_superuser
 from app.crud.charityproject import charity_project_crud
 from app.services import (set_user_permissions, spreadsheets_create,
@@ -31,4 +33,6 @@ async def get_report(
     await spreadsheets_update_value(spreadsheetid,
                                     projects,
                                     wrapper_services)
-    return 'https://docs.google.com/spreadsheets/d/' + spreadsheetid
+    link = SPREADSHEETS_URL.format(spreadsheetid)
+    logger.info(link)
+    return link
