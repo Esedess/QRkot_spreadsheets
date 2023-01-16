@@ -23,7 +23,7 @@
 Клонировать репозиторий и перейти в него в командной строке:
 
 ```bash
-git clone https://github.com/KapkaDibab/cat_charity_fund
+git clone https://github.com/Esedess/cat_charity_fund
 ```
 
 ```bash
