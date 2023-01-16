@@ -88,4 +88,4 @@ API доступно по адресу http://localhost:8000.
 ## Авторы
 
 - [@yandex-praktikum](https://github.com/yandex-praktikum)
-- [@KapkaDibab](https://github.com/KapkaDibab)
+- [@Esedess](https://github.com/Esedess)
